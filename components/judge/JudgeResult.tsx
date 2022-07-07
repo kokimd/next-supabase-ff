@@ -53,7 +53,7 @@ export const JudgeResult: FC = () => {
   return (
     <Box className='rounded-md bg-white p-8' mx='auto'>
       <Box
-        className='w-2/5
+        className='lg:3/5 w-full md:w-1/2
       '
       >
         <Select
