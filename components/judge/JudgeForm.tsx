@@ -1,8 +1,11 @@
 import { FC } from 'react';
 import { Box, Button, Group, NumberInput, Select } from '@mantine/core';
-import { useForm } from '@mantine/form';
+import { useForm, yupResolver } from '@mantine/form';
+import { judgeSchema } from '../../utils/validationSchema';
+
 export const JudgeForm: FC = () => {
   const form = useForm({
+    schema: yupResolver(judgeSchema),
     initialValues: {
       member: '',
       cuteNess: 0,
@@ -13,7 +16,7 @@ export const JudgeForm: FC = () => {
   return (
     <Box className='rounded-md bg-white p-8' mx='auto'>
       <form
-        className='flex flex-col space-y-8'
+        className='mx-auto mt-8 flex w-full flex-col space-y-8 md:w-7/12'
         onSubmit={form.onSubmit((values) => console.log(values))}
       >
         <Select
