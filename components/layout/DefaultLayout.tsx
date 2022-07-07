@@ -1,6 +1,7 @@
 import { FC, ReactNode } from 'react';
 import Head from 'next/head';
 import Link from 'next/link';
+import { useAuth } from '../../hooks/useAuth';
 
 type Props = {
   title: string;
@@ -8,6 +9,7 @@ type Props = {
 };
 
 export const DefaultLayout: FC<Props> = ({ title, children }) => {
+  const { logOut } = useAuth();
   return (
     <div className='flex min-h-screen flex-col items-center justify-center'>
       <Head>{title}</Head>
@@ -18,7 +20,10 @@ export const DefaultLayout: FC<Props> = ({ title, children }) => {
           </a>
         </Link>
         <div className='ml-auto'>
-          <button className='rounded-md border-none bg-red-500 py-2 px-4 font-semibold text-white md:px-6 md:text-base md:font-bold'>
+          <button
+            className='cursor-pointer rounded-md border-none bg-red-500 py-2 px-4  font-semibold text-white md:px-6 md:text-base md:font-bold'
+            onClick={logOut}
+          >
             Logout
           </button>
         </div>
