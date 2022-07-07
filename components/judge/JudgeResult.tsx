@@ -1,44 +1,39 @@
 import { FC } from 'react';
-import { Box, Table } from '@mantine/core';
+import { Box, Select, Table } from '@mantine/core';
 import { Th } from '../Table/Th';
 
 export const JudgeResult: FC = () => {
   const elements = [
     {
-      number: 1,
-      name: 'Carbon',
+      name: '審査員01',
       cuteness: 10,
       fun: 30,
       amazing: 100,
       sum: 140,
     },
     {
-      number: 2,
-      name: 'Nitrogen',
+      name: '審査員02',
       cuteness: 10,
       fun: 30,
       amazing: 100,
       sum: 140,
     },
     {
-      number: 3,
-      name: 'Yttrium',
+      name: '審査員03',
       cuteness: 10,
       fun: 30,
       amazing: 100,
       sum: 140,
     },
     {
-      number: 4,
-      name: 'Barium',
+      name: '審査員04',
       cuteness: 10,
       fun: 30,
       amazing: 100,
       sum: 140,
     },
     {
-      number: 5,
-      name: 'Cerium',
+      name: '審査員05',
       cuteness: 10,
       fun: 30,
       amazing: 100,
@@ -48,7 +43,6 @@ export const JudgeResult: FC = () => {
 
   const rows = elements.map((element) => (
     <tr key={element.name}>
-      <td>{element.number}</td>
       <td>{element.name}</td>
       <td>{element.cuteness}</td>
       <td>{element.fun}</td>
@@ -58,12 +52,29 @@ export const JudgeResult: FC = () => {
   ));
   return (
     <Box className='rounded-md bg-white p-8' mx='auto'>
-      <Table striped>
+      <Box
+        className='w-2/5
+      '
+      >
+        <Select
+          styles={{
+            label: { fontWeight: 'bold', padding: '4px 0' },
+          }}
+          label='ユーザー'
+          placeholder='参加者を選択'
+          required
+          data={[
+            { value: '1', label: '参加者1' },
+            { value: '2', label: '参加者2' },
+            { value: '3', label: '参加者3' },
+            { value: '4', label: '参加者4' },
+          ]}
+        />
+      </Box>
+      <Table striped className='mt-12'>
         <thead>
           <tr>
-            <Th type='default'>No. </Th>
-            <Th type='PC'>ユーザー名</Th>
-            <Th type='SP'>名</Th>
+            <Th type='default'>審査員</Th>
             <Th type='PC'>可愛さ&amp;カッコよさ</Th>
             <Th type='SP'>可</Th>
             <Th type='PC'>面白さ</Th>
