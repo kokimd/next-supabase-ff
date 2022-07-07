@@ -2,6 +2,7 @@ import { FC, ReactNode } from 'react';
 import Head from 'next/head';
 import Link from 'next/link';
 import { useAuth } from '../../hooks/useAuth';
+import useStore from '../../utils/store';
 
 type Props = {
   title: string;
@@ -10,6 +11,8 @@ type Props = {
 
 export const DefaultLayout: FC<Props> = ({ title, children }) => {
   const { logOut } = useAuth();
+  const session = useStore((state) => state.session);
+
   return (
     <div className='flex min-h-screen flex-col items-center justify-center'>
       <Head>{title}</Head>
@@ -20,12 +23,14 @@ export const DefaultLayout: FC<Props> = ({ title, children }) => {
           </a>
         </Link>
         <div className='ml-auto'>
-          <button
-            className='cursor-pointer rounded-md border-none bg-red-500 py-2 px-4  font-semibold text-white md:px-6 md:text-base md:font-bold'
-            onClick={logOut}
-          >
-            Logout
-          </button>
+          {session && (
+            <button
+              className='cursor-pointer rounded-md border-none bg-red-500 py-2 px-2 text-sm  font-semibold text-white md:px-4 md:text-sm md:font-bold'
+              onClick={logOut}
+            >
+              ログアウト
+            </button>
+          )}
         </div>
       </header>
       <main className='flex w-screen flex-1 flex-col items-center bg-blue-100'>
