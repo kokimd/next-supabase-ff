@@ -1,6 +1,9 @@
 import { FC } from 'react';
-import { Tabs } from '@mantine/core';
+import { Space, Tabs } from '@mantine/core';
 import { AdminMembers } from './members/AdminMembers/AdminMembers';
+import { JudgeResult } from '../judge/JudgeResult';
+import { JudgeLogs } from './JudgeLogs';
+import { AllJudgeResult } from './AllJudgeResult';
 
 export const AdminTabs: FC = () => {
   return (
@@ -13,10 +16,18 @@ export const AdminTabs: FC = () => {
       </Tabs.Tab>
 
       <Tabs.Tab
-        label='審査結果・ログ出力'
-        className='w-1/3 text-xs  font-bold md:text-lg'
+        label='ログ出力'
+        className='w-1/4 text-xs  font-bold md:text-lg'
       >
-        a
+        <JudgeResult />
+        <Space h={20} />
+        <JudgeLogs />
+      </Tabs.Tab>
+      <Tabs.Tab
+        label='審査結果'
+        className='w-1/4 rounded-md text-xs font-bold md:text-lg'
+      >
+        <AllJudgeResult />
       </Tabs.Tab>
     </Tabs>
   );
