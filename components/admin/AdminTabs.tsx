@@ -20,7 +20,7 @@ export const AdminTabs: FC = () => {
         className='w-1/4 text-xs  font-bold md:text-lg'
       >
         <JudgeResult />
-        <Space h={20} />
+        <Space h={30} />
         <JudgeLogs />
       </Tabs.Tab>
       <Tabs.Tab
@@ -28,6 +28,8 @@ export const AdminTabs: FC = () => {
         className='w-1/4 rounded-md text-xs font-bold md:text-lg'
       >
         <AllJudgeResult />
+        <Space h={30} />
+        <JudgeResult />
       </Tabs.Tab>
     </Tabs>
   );
