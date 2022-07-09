@@ -23,7 +23,6 @@ function MyApp({ Component, pageProps }: AppProps) {
         withNormalizeCSS
         theme={{
           colorScheme: 'light',
-          fontFamily: 'Verdana sans-serif',
         }}
       >
         <Component {...pageProps} />
