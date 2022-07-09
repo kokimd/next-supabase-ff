@@ -8,7 +8,7 @@ const Home: NextPage = () => {
   const session = useStore((state) => state.session);
 
   return (
-    <DefaultLayout title='審査'>
+    <DefaultLayout title={session ? '審査' : 'ログイン'}>
       {session ? <JudgeForm /> : <LoginForm />}
     </DefaultLayout>
   );

@@ -18,7 +18,7 @@ export const DefaultLayout: FC<Props> = ({ title, children }) => {
   return (
     <div className='flex min-h-screen flex-col items-center justify-center'>
       <Head>
-        <title>{title}</title>
+        <title>ポムコレ | {title}</title>
       </Head>
       <header className='container flex h-16 w-full items-center justify-center px-4 md:h-20 md:justify-start'>
         <Link href='/'>
