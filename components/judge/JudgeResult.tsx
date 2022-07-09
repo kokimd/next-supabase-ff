@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import { Box, Divider, Select, Table, Text } from '@mantine/core';
+import { Box, Select, Table } from '@mantine/core';
 import { Th } from '../Table/Th';
 
 export const JudgeResult: FC = () => {
@@ -51,11 +51,7 @@ export const JudgeResult: FC = () => {
     </tr>
   ));
   return (
-    <Box className='rounded-md bg-white p-8' mx='auto'>
-      <Text size='lg' weight={700} className='pb-2'>
-        審査結果（ユーザー別）
-      </Text>
-      <Divider />
+    <Box className='rounded-md bg-white p-4 md:p-8' mx='auto'>
       <Box className='lg:3/5 mt-4 w-full md:w-1/2'>
         <Select
           styles={{
