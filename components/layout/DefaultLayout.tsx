@@ -39,12 +39,16 @@ export const DefaultLayout: FC<Props> = ({ title, children }) => {
       </header>
       <main className='flex min-h-full w-screen flex-1 flex-col items-center bg-blue-100 px-4 py-12 md:px-0'>
         <div className='w-full md:w-5/6'>
-          <Group className='flex'>
-            <UtilLink path='/'>審査</UtilLink>
-            <UtilLink path='/participants'>参加者一覧</UtilLink>
-            <UtilLink path='/result'>審査結果</UtilLink>
-          </Group>
-          <Space h={30} />
+          {session && (
+            <>
+              <Group className='flex'>
+                <UtilLink path='/'>審査</UtilLink>
+                <UtilLink path='/participants'>参加者一覧</UtilLink>
+                <UtilLink path='/result'>審査結果</UtilLink>
+              </Group>
+              <Space h={30} />
+            </>
+          )}
           {children}
         </div>
       </main>

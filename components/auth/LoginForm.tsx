@@ -7,8 +7,8 @@ export const LoginForm: FC = () => {
   const { error, login, authForm } = useAuth();
 
   return (
-    <Box className='p-4 md:p-8'>
-      <Box className='mt-12 w-7/12 rounded-md bg-white p-8' mx='auto'>
+    <Box className='w-full p-4 md:p-8'>
+      <Box className='mt-12 w-full rounded-md bg-white p-8' mx='auto'>
         {error && <ErrorMessage>{error}</ErrorMessage>}
         <form className='mx-auto mt-4 flex flex-col space-y-8' onSubmit={login}>
           <TextInput
