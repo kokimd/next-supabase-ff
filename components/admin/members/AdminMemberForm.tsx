@@ -2,6 +2,7 @@ import { Box, Button, NumberInput, TextInput } from '@mantine/core';
 import { FormList } from '@mantine/form';
 import { UseFormReturnType } from '@mantine/form/lib/use-form';
 import { FC, memo } from 'react';
+import { Trash } from 'tabler-icons-react';
 import { Member } from './AdminMembers/types';
 
 type Props = {
@@ -36,7 +37,7 @@ const AdminMemberFormMemo: FC<Props> = ({
       />
 
       <Button color='pink' type='button' onClick={onClick}>
-        削除
+        <Trash size={20} />
       </Button>
     </Box>
   );

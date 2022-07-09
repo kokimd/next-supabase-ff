@@ -5,6 +5,7 @@ import { useArrayState } from '../../../../hooks/util/useArrayState';
 import { AdminMemberForm } from '../AdminMemberForm';
 import { Member } from './types';
 import { showNotification } from '@mantine/notifications';
+import { PlaylistAdd } from 'tabler-icons-react';
 
 const dummyData = [
   {
@@ -74,7 +75,7 @@ export const AdminMembers: FC = () => {
     <Box className=' rounded-md bg-white p-8' mx='auto'>
       <Group position='right'>
         <Button radius='xl' color='indigo' onClick={addMember}>
-          参加者を追加
+          <PlaylistAdd size={30} />
         </Button>
       </Group>
       <form onSubmit={onSubmit} className='mt-8 flex flex-col space-y-4'>
