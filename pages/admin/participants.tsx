@@ -3,7 +3,7 @@ import { AdminLayout } from '../../components/layout/AdminLayout';
 
 const Participants = () => {
   return (
-    <AdminLayout title='審査結果'>
+    <AdminLayout title='参加者一覧'>
       <AdminMembers />
     </AdminLayout>
   );

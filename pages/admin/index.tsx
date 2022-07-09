@@ -6,7 +6,7 @@ import { AdminLayout } from '../../components/layout/AdminLayout';
 
 const Admin: NextPage = () => {
   return (
-    <AdminLayout title='Admin'>
+    <AdminLayout title='審査結果'>
       <AllJudgeResult />
       <Space h={30} />
       <JudgeResult />
