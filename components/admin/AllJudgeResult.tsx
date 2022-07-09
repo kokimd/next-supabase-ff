@@ -1,8 +1,11 @@
 import { FC } from 'react';
-import { Box, Divider, Select, Table, Text } from '@mantine/core';
+import { Box, Select, Table } from '@mantine/core';
 import { Th } from '../Table/Th';
+import { useGetWindowSize } from '../util/useGetWindowSize';
 
 export const AllJudgeResult: FC = () => {
+  const { width } = useGetWindowSize();
+
   const elements = [
     {
       index: 1,
@@ -56,12 +59,22 @@ export const AllJudgeResult: FC = () => {
       <td>{element.sum}</td>
     </tr>
   ));
+
+  const SPOnlyRows = elements.map((element) => {
+    return (
+      <tr key={element.index} className='text-xs'>
+        <td>{element.index}</td>
+        <td>{element.name.substring(0, 5) + '...'}</td>
+        <td>{element.cuteness}</td>
+        <td>{element.fun}</td>
+        <td>{element.amazing}</td>
+        <td>{element.sum}</td>
+      </tr>
+    );
+  });
+
   return (
-    <Box className='rounded-md bg-white p-8' mx='auto'>
-      <Text size='lg' weight={700} className='pb-2'>
-        総合審査結果
-      </Text>
-      <Divider />
+    <Box className='rounded-md bg-white p-4 md:p-8' mx='auto'>
       <Box className='lg:3/5 mt-4 w-full md:w-1/2'>
         <Select
           styles={{
@@ -81,10 +94,11 @@ export const AllJudgeResult: FC = () => {
         />
       </Box>
       <Table striped className='mt-12'>
-        <thead>
+        <thead className=''>
           <tr>
             <Th type='default'>No</Th>
-            <Th type='default'>ユーザー</Th>
+            <Th type='PC'>ユーザー</Th>
+            <Th type='SP'>ユ</Th>
             <Th type='PC'>可愛さ&amp;カッコよさ</Th>
             <Th type='SP'>可</Th>
             <Th type='PC'>面白さ</Th>
@@ -95,7 +109,7 @@ export const AllJudgeResult: FC = () => {
             <Th type='SP'>計</Th>
           </tr>
         </thead>
-        <tbody>{rows}</tbody>
+        <tbody>{width > 550 ? rows : SPOnlyRows}</tbody>
       </Table>
     </Box>
   );
