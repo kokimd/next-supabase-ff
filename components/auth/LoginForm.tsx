@@ -8,7 +8,7 @@ export const LoginForm: FC = () => {
 
   return (
     <Box className='w-full p-4 md:p-8'>
-      <Box className='mt-12 w-full rounded-md bg-white p-8' mx='auto'>
+      <Box className='mt-12 w-full rounded-md bg-white p-8 md:w-7/12' mx='auto'>
         {error && <ErrorMessage>{error}</ErrorMessage>}
         <form className='mx-auto mt-4 flex flex-col space-y-8' onSubmit={login}>
           <TextInput
