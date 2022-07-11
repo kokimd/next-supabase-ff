@@ -1,10 +1,15 @@
+import { NextPage } from 'next';
 import { Space } from '@mantine/core';
-import React from 'react';
 import { JudgeLogs } from '../../components/admin/JudgeLogs';
 import { JudgeResult } from '../../components/judge/JudgeResult';
 import { AdminLayout } from '../../components/layout/AdminLayout';
+import { useQueryParticipants } from '../../hooks/useQueryParticipants';
 
-const Log = () => {
+const Log: NextPage = () => {
+  const { data } = useQueryParticipants();
+
+  console.log(data);
+
   return (
     <AdminLayout title='ログ出力'>
       <JudgeResult />
