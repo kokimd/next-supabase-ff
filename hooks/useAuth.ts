@@ -2,6 +2,15 @@ import { useForm } from '@mantine/hooks';
 import { useRouter } from 'next/router';
 import { FormEvent, useState } from 'react';
 import { supabase } from '../utils/supabase';
+import { Users } from '../utils/users';
+
+type User =
+  | 'admin01'
+  | 'judge01'
+  | 'judge02'
+  | 'judge03'
+  | 'judge04'
+  | 'judge05';
 
 export const useAuth = () => {
   const router = useRouter();
@@ -14,13 +23,22 @@ export const useAuth = () => {
     },
   });
 
+  const getUsername = (email: string | undefined) => {
+    let user: User;
+    if (email) {
+      user = email.substring(0, email.indexOf('@')) as User;
+      const username = Users[user];
+
+      return username;
+    }
+  };
+
   const login = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const { user, error } = await supabase.auth.signIn(authForm.values);
+    const { error } = await supabase.auth.signIn(authForm.values);
     if (error) {
       setError(error.message);
     }
-    console.log(user);
   };
 
   const register = async (e: FormEvent<HTMLFormElement>) => {
@@ -40,5 +58,5 @@ export const useAuth = () => {
     router.push('/');
   };
 
-  return { error, authForm, login, register, logOut };
+  return { error, authForm, login, register, logOut, getUsername };
 };
