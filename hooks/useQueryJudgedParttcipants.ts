@@ -8,7 +8,7 @@ export const useQueryJudgedParticipants = () => {
 
   const getJudged = async () => {
     const { data } = await supabase
-      .from('judgements')
+      .from('judgments')
       .select(`participant_id (*)`)
       .eq('user_id', session?.user?.id);
 

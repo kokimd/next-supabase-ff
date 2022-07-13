@@ -17,6 +17,5 @@ export const useQueryParticipants = () => {
   return useQuery<ParticipantType[]>({
     queryFn: getAllParticipants,
     queryKey: ['participants'],
-    staleTime: 1,
   });
 };

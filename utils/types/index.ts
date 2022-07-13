@@ -14,4 +14,5 @@ export type JudgeType = {
   participant_id: number;
   participants?: ParticipantType;
   profiles?: { name: string };
+  profile_id?: number;
 };

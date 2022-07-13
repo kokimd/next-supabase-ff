@@ -7,6 +7,7 @@ import { useMutateJudge } from '../../hooks/useMutateJudge';
 import { useQueryJudgedParticipants } from '../../hooks/useQueryJudgedParttcipants';
 import useStore from '../../utils/store';
 import { JudgeType } from '../../utils/types';
+import { useGetUserId } from '../../hooks/util/useGetUserId';
 
 export const JudgeForm: FC = () => {
   const session = useStore((state) => state.session);
@@ -14,6 +15,7 @@ export const JudgeForm: FC = () => {
   const { data: judgedParticipants } = useQueryJudgedParticipants();
   const { createJudgeMutation } = useMutateJudge();
   const [list, setList] = useState<number[]>([]);
+  const { userId } = useGetUserId();
 
   useEffect(() => {
     if (judgedParticipants) {
@@ -54,11 +56,10 @@ export const JudgeForm: FC = () => {
       sum: cuteNess + fun + amazing,
       user_id: session?.user?.id,
       participant_id: Number(value.participant_id),
+      profile_id: userId,
     };
     console.log(payload);
     const alreadyJudged: Boolean = list.includes(payload.participant_id);
-
-    console.log(alreadyJudged);
 
     if (alreadyJudged) {
       alert('既に審査済みのユーザーです。');
