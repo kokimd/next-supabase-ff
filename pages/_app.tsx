@@ -26,7 +26,7 @@ function MyApp({ Component, pageProps }: AppProps) {
   }, [setSession]);
 
   return (
-    <NotificationsProvider position='top-center' limit={2}>
+    <NotificationsProvider position='bottom-right' limit={2}>
       <MantineProvider
         withGlobalStyles
         withNormalizeCSS
