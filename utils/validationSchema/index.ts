@@ -22,7 +22,7 @@ export const LoginSchema = yup.object().shape({
 
 // 審査
 export const judgeSchema = yup.object().shape({
-  member: yup.string().required(`審査対象${REQUIRED}`),
+  participant_id: yup.string().required(`審査対象${REQUIRED}`),
   cuteNess: yup.number().required(`可愛さ${REQUIRED}`),
   fun: yup.number().required(`面白さ${REQUIRED}`),
   amazing: yup.number().required(`パフォーマンスの凄さ${REQUIRED}`),

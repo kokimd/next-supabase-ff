@@ -15,7 +15,7 @@ export const UtilLink: FC<Props> = ({ path, children }) => {
       <a
         className={`${
           isMatch
-            ? 'bg-white hover:bg-transparent'
+            ? 'bg-white hover:bg-opacity-50'
             : 'bg-transparent hover:bg-white'
         } rounded-md px-4 py-2 text-base font-bold text-black no-underline md:px-8 md:text-lg`}
       >

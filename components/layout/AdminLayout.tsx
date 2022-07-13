@@ -1,9 +1,9 @@
 import { FC, ReactNode } from 'react';
 import Head from 'next/head';
 import Link from 'next/link';
-import { useAuth } from '../../hooks/useAuth';
 import useStore from '../../utils/store';
-import { Group, Space, Text } from '@mantine/core';
+import { useAuth } from '../../hooks/useAuth';
+import { Group, Space } from '@mantine/core';
 import { UtilLink } from '../util/UtilLink';
 
 type Props = {
@@ -11,8 +11,8 @@ type Props = {
   children: ReactNode;
 };
 
-export const DefaultLayout: FC<Props> = ({ title, children }) => {
-  const { logOut, getUsername } = useAuth();
+export const AdminLayout: FC<Props> = ({ title, children }) => {
+  const { logOut } = useAuth();
   const session = useStore((state) => state.session);
 
   return (
@@ -21,7 +21,7 @@ export const DefaultLayout: FC<Props> = ({ title, children }) => {
         <title>ポムコレ | {title}</title>
       </Head>
       <header className='container flex h-16 w-full items-center justify-center px-4 md:h-20 md:justify-start'>
-        <Link href='/'>
+        <Link href='/admin'>
           <a className='font-mono text-xl font-bold text-black  no-underline md:text-3xl'>
             ポムコレ
           </a>
@@ -41,19 +41,10 @@ export const DefaultLayout: FC<Props> = ({ title, children }) => {
         <div className='w-full md:w-5/6'>
           {session && (
             <>
-              <Group position='right' mb={20}>
-                <Text
-                  weight={800}
-                  size='md'
-                  className='rounded-full bg-white py-2 px-4 text-purple-500'
-                >
-                  {getUsername(session.user?.email)}
-                </Text>
-              </Group>
               <Group className='flex'>
-                <UtilLink path='/'>参加者一覧</UtilLink>
-                <UtilLink path='/judge'>審査</UtilLink>
-                <UtilLink path='/result'>審査結果</UtilLink>
+                <UtilLink path='/admin'>審査結果</UtilLink>
+                <UtilLink path='/admin/log'>ログ出力</UtilLink>
+                <UtilLink path='/admin/participants'>参加者一覧</UtilLink>
               </Group>
               <Space h={30} />
             </>

@@ -1,23 +1,27 @@
 import { FC } from 'react';
-import { Box, Table } from '@mantine/core';
+import { Box, Button, Group, LoadingOverlay, Table } from '@mantine/core';
+import { useQueryParticipants } from '../../hooks/useQueryParticipants';
+import { useRouter } from 'next/router';
 
 export const MemberList: FC = () => {
-  const elements = [
-    { number: 1, name: 'Carbon@Chocobo' },
-    { number: 2, name: 'Nitrogen@Tiamat' },
-    { number: 3, name: 'Yttrium@Zeromusu' },
-    { number: 4, name: 'Barium@aaa' },
-    { number: 5, name: 'Cerium@aaaa' },
-  ];
+  const router = useRouter();
+  const { data: participants } = useQueryParticipants();
 
-  const rows = elements.map((element) => (
+  const rows = participants?.map((element) => (
     <tr key={element.name}>
-      <td>{element.number}</td>
+      <td>{element.order}</td>
       <td>{element.name}</td>
     </tr>
   ));
+
   return (
     <Box className='rounded-md bg-white p-8' mx='auto'>
+      <LoadingOverlay visible={Boolean(!participants)} />
+      <Group position='right' mb={12} className='hidden'>
+        <Button onClick={() => router.push('admin/participant/edit')}>
+          編集する
+        </Button>
+      </Group>
       <Table striped>
         <thead>
           <tr>

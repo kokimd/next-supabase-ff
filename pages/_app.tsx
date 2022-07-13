@@ -2,9 +2,18 @@ import '../styles/globals.css';
 import type { AppProps } from 'next/app';
 import { useEffect } from 'react';
 import { supabase } from '../utils/supabase';
-import useStore from '../utils/store';
 import { NotificationsProvider } from '@mantine/notifications';
 import { MantineProvider } from '@mantine/core';
+import { QueryClient, QueryClientProvider } from 'react-query';
+import useStore from '../utils/store';
+
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      retry: false,
+    },
+  },
+});
 
 function MyApp({ Component, pageProps }: AppProps) {
   const setSession = useStore((state) => state.setSession);
@@ -23,10 +32,11 @@ function MyApp({ Component, pageProps }: AppProps) {
         withNormalizeCSS
         theme={{
           colorScheme: 'light',
-          fontFamily: 'Verdana sans-serif',
         }}
       >
-        <Component {...pageProps} />
+        <QueryClientProvider client={queryClient}>
+          <Component {...pageProps} />
+        </QueryClientProvider>
       </MantineProvider>
     </NotificationsProvider>
   );

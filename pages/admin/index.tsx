@@ -1,15 +1,16 @@
 import { NextPage } from 'next';
-import React from 'react';
-import { AdminTabs } from '../../components/admin/AdminTabs';
-import { DefaultLayout } from '../../components/layout/DefaultLayout';
+import { AllJudgeResult } from '../../components/admin/AllJudgeResult';
+import { JudgeResult } from '../../components/judge/JudgeResult';
+import { Space } from '@mantine/core';
+import { AdminLayout } from '../../components/layout/AdminLayout';
 
 const Admin: NextPage = () => {
   return (
-    <DefaultLayout title='Admin'>
-      <div className='w-full md:w-5/6'>
-        <AdminTabs />
-      </div>
-    </DefaultLayout>
+    <AdminLayout title='審査結果'>
+      <AllJudgeResult />
+      <Space h={30} />
+      <JudgeResult />
+    </AdminLayout>
   );
 };
 
