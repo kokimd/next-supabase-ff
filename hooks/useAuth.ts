@@ -28,16 +28,25 @@ export const useAuth = () => {
     if (email) {
       user = email.substring(0, email.indexOf('@')) as User;
       const username = Users[user];
-
       return username;
     }
   };
 
   const login = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const { error } = await supabase.auth.signIn(authForm.values);
+    const { user, error } = await supabase.auth.signIn(authForm.values);
     if (error) {
       setError(error.message);
+    }
+
+    if (user) {
+      const { data } = await supabase
+        .from('profiles')
+        .select('id,name')
+        .eq('user_id', user.id);
+      if (data) {
+        localStorage.setItem('userInfo', data[0].id);
+      }
     }
   };
 
@@ -55,6 +64,7 @@ export const useAuth = () => {
       setError(error.message);
       return;
     }
+    localStorage.removeItem('userInfo');
     router.push('/');
   };
 
