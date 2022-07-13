@@ -51,8 +51,8 @@ export const DefaultLayout: FC<Props> = ({ title, children }) => {
                 </Text>
               </Group>
               <Group className='flex'>
-                <UtilLink path='/'>審査</UtilLink>
-                <UtilLink path='/participants'>参加者一覧</UtilLink>
+                <UtilLink path='/'>参加者一覧</UtilLink>
+                <UtilLink path='/judge'>審査</UtilLink>
                 <UtilLink path='/result'>審査結果</UtilLink>
               </Group>
               <Space h={30} />
