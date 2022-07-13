@@ -1,55 +1,32 @@
-import { FC } from 'react';
+import { FC, useState } from 'react';
 import { Box, Select, Table } from '@mantine/core';
 import { Th } from '../Table/Th';
+import { useQueryJudgmentsByParticipant } from '../../hooks/useQueryJudgmentsByParticipant';
+import { useQueryParticipants } from '../../hooks/useQueryParticipants';
 
 export const JudgeResult: FC = () => {
-  const elements = [
-    {
-      name: '審査員01',
-      cuteness: 10,
-      fun: 30,
-      amazing: 100,
-      sum: 140,
-    },
-    {
-      name: '審査員02',
-      cuteness: 10,
-      fun: 30,
-      amazing: 100,
-      sum: 140,
-    },
-    {
-      name: '審査員03',
-      cuteness: 10,
-      fun: 30,
-      amazing: 100,
-      sum: 140,
-    },
-    {
-      name: '審査員04',
-      cuteness: 10,
-      fun: 30,
-      amazing: 100,
-      sum: 140,
-    },
-    {
-      name: '審査員05',
-      cuteness: 10,
-      fun: 30,
-      amazing: 100,
-      sum: 140,
-    },
-  ];
+  const [value, setValue] = useState<number>();
+  const { data: judgments } = useQueryJudgmentsByParticipant(value);
+  const { data: participants } = useQueryParticipants();
 
-  const rows = elements.map((element) => (
-    <tr key={element.name}>
-      <td>{element.name}</td>
-      <td>{element.cuteness}</td>
+  const rows = judgments?.map((element, index) => (
+    <tr key={index}>
+      <td>{element.profiles?.name}</td>
+      <td>{element.cuteNess}</td>
       <td>{element.fun}</td>
       <td>{element.amazing}</td>
       <td>{element.sum}</td>
     </tr>
   ));
+
+  const participantsData = participants?.map((participant, index) => ({
+    value: String(participant.id),
+    label: participant.name,
+  }));
+
+  const selectData = participantsData || [
+    { value: '1', label: '選択して下さい。' },
+  ];
   return (
     <Box className='rounded-md bg-white p-4 md:p-8' mx='auto'>
       <Box className='lg:3/5 mt-4 w-full md:w-1/2'>
@@ -60,12 +37,9 @@ export const JudgeResult: FC = () => {
           label='ユーザー'
           placeholder='参加者を選択'
           required
-          data={[
-            { value: '1', label: '参加者1' },
-            { value: '2', label: '参加者2' },
-            { value: '3', label: '参加者3' },
-            { value: '4', label: '参加者4' },
-          ]}
+          data={selectData!}
+          // @ts-ignore
+          onChange={setValue}
         />
       </Box>
       <Table striped className='mt-12'>

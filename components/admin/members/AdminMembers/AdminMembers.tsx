@@ -3,45 +3,32 @@ import { formList, useForm } from '@mantine/form';
 import { FC, FormEvent } from 'react';
 import { useArrayState } from '../../../../hooks/util/useArrayState';
 import { AdminMemberForm } from '../AdminMemberForm';
-import { Member } from './types';
 import { showNotification } from '@mantine/notifications';
 import { PlaylistAdd } from 'tabler-icons-react';
-
-const dummyData = [
-  {
-    index: 1,
-    name: 'aaaaaaa@Zeromus',
-  },
-  {
-    index: 2,
-    name: 'aaaaaaa@Tiamat',
-  },
-  {
-    index: 3,
-    name: 'aaaaaaa@Chocobo',
-  },
-  {
-    index: 4,
-    name: 'aaaaaaa@AAAA',
-  },
-  {
-    index: 5,
-    name: 'aaaaaaa@BBBB',
-  },
-];
+import { ParticipantType } from '../../../../utils/types';
+import { useMutateParticipants } from '../../../../hooks/useMutateParticipants';
+import { useQueryClient } from 'react-query';
 
 export const AdminMembers: FC = () => {
+  const queryClient = useQueryClient();
+  const participants = queryClient.getQueryData<ParticipantType[]>([
+    'participants',
+  ]);
+  console.log(participants, 'data');
+
+  const { createParticipantMutation } = useMutateParticipants();
+
   const [membersState, setMembersState, editMembers] = // eslint-disable-line
-    useArrayState<Member>(dummyData);
+    useArrayState<ParticipantType>(participants!);
 
   const memberForm = useForm({
     initialValues: { members: formList(membersState) },
   });
 
   const addMember = () => {
-    editMembers.addArrayState({ index: membersState.length + 1, name: '' });
+    editMembers.addArrayState({ order: membersState.length + 1, name: '' });
     memberForm.addListItem('members', {
-      index: memberForm.values.members.length + 1,
+      order: memberForm.values.members.length + 1,
       name: '',
     });
   };
@@ -53,7 +40,7 @@ export const AdminMembers: FC = () => {
     const hasDuplicated = () => {
       const duplicatedFilter = members.filter(
         (member, index) =>
-          members.findIndex((item) => item.index === member.index) === index
+          members.findIndex((item) => item.order === member.order) === index
       );
       return duplicatedFilter.length !== members.length;
     };
@@ -69,6 +56,7 @@ export const AdminMembers: FC = () => {
       autoClose: 3000,
     });
     console.log('state', members);
+    createParticipantMutation.mutate(members);
   };
 
   return (
@@ -79,7 +67,7 @@ export const AdminMembers: FC = () => {
         </Button>
       </Group>
       <form onSubmit={onSubmit} className='mt-8 flex flex-col space-y-4'>
-        {memberForm.values.members.map((member, index) => (
+        {membersState.map((member, index) => (
           <AdminMemberForm
             labels={index === 0 ? ['参加者名', '順番'] : ['', '']}
             index={index}

@@ -3,14 +3,14 @@ import { FormList } from '@mantine/form';
 import { UseFormReturnType } from '@mantine/form/lib/use-form';
 import { FC, memo } from 'react';
 import { Trash } from 'tabler-icons-react';
-import { Member } from './AdminMembers/types';
+import { ParticipantType } from '../../../utils/types';
 
 type Props = {
   labels?: ['参加者名', '順番'] | ['', ''] | undefined;
   index: number;
   onClick: () => void;
   form: UseFormReturnType<{
-    members: FormList<Member>;
+    members: FormList<ParticipantType>;
   }>;
 };
 const AdminMemberFormMemo: FC<Props> = ({
@@ -25,7 +25,7 @@ const AdminMemberFormMemo: FC<Props> = ({
         label={labels[1]}
         className='w-16'
         min={1}
-        {...form.getListInputProps('members', index, 'index')}
+        {...form.getListInputProps('members', index, 'order')}
         required
       />
       <TextInput
@@ -37,7 +37,7 @@ const AdminMemberFormMemo: FC<Props> = ({
       />
 
       <Button color='pink' type='button' onClick={onClick}>
-        <Trash size={20} />
+        <Trash size={22} />
       </Button>
     </Box>
   );
