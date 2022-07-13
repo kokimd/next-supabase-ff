@@ -8,6 +8,7 @@ import { useQueryJudgedParticipants } from '../../hooks/useQueryJudgedParttcipan
 import useStore from '../../utils/store';
 import { JudgeType } from '../../utils/types';
 import { useGetUserId } from '../../hooks/util/useGetUserId';
+import { showNotification } from '@mantine/notifications';
 
 export const JudgeForm: FC = () => {
   const session = useStore((state) => state.session);
@@ -51,6 +52,8 @@ export const JudgeForm: FC = () => {
 
   const onSubmitJudge = (value: any) => {
     const { cuteNess, fun, amazing } = value;
+    console.log(userId);
+
     const payload: JudgeType = {
       ...value,
       sum: cuteNess + fun + amazing,
@@ -65,6 +68,11 @@ export const JudgeForm: FC = () => {
       alert('既に審査済みのユーザーです。');
     } else {
       createJudgeMutation.mutate(payload);
+      showNotification({
+        title: 'Success',
+        message: '更新できましたわ。',
+        autoClose: 3000,
+      });
     }
   };
 
