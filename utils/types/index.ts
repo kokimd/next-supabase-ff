@@ -16,3 +16,10 @@ export type JudgeType = {
   profiles?: { name: string };
   profile_id?: number;
 };
+
+export type JudgeFormData = {
+  cuteNess: number;
+  fun: number;
+  amazing: number;
+  participant_id: number | string;
+};

@@ -1,22 +1,18 @@
 import { FC, useEffect, useState } from 'react';
-import { Box, Button, Group, NumberInput, Select } from '@mantine/core';
+import { Box, Button, Group, Modal, NumberInput, Select } from '@mantine/core';
 import { useForm, yupResolver } from '@mantine/form';
 import { judgeSchema } from '../../utils/validationSchema';
 import { useQueryParticipants } from '../../hooks/useQueryParticipants';
-import { useMutateJudge } from '../../hooks/useMutateJudge';
 import { useQueryJudgedParticipants } from '../../hooks/useQueryJudgedParttcipants';
-import useStore from '../../utils/store';
-import { JudgeType } from '../../utils/types';
-import { useGetUserId } from '../../hooks/util/useGetUserId';
-import { showNotification } from '@mantine/notifications';
+import { JudgeFormData } from '../../utils/types';
+
+import { JudgeConfirm } from './JudgeConfirm';
 
 export const JudgeForm: FC = () => {
-  const session = useStore((state) => state.session);
+  const [opened, setOpened] = useState(false);
   const { data: allParticipants } = useQueryParticipants();
   const { data: judgedParticipants } = useQueryJudgedParticipants();
-  const { createJudgeMutation } = useMutateJudge();
   const [list, setList] = useState<number[]>([]);
-  const { userId } = useGetUserId();
 
   useEffect(() => {
     if (judgedParticipants) {
@@ -40,7 +36,7 @@ export const JudgeForm: FC = () => {
     { value: '1', label: '選択して下さい。' },
   ];
 
-  const form = useForm({
+  const form = useForm<JudgeFormData>({
     schema: yupResolver(judgeSchema),
     initialValues: {
       participant_id: '',
@@ -50,29 +46,14 @@ export const JudgeForm: FC = () => {
     },
   });
 
-  const onSubmitJudge = (value: any) => {
-    const { cuteNess, fun, amazing } = value;
-    console.log(userId);
-
-    const payload: JudgeType = {
-      ...value,
-      sum: cuteNess + fun + amazing,
-      user_id: session?.user?.id,
-      participant_id: Number(value.participant_id),
-      profile_id: userId,
-    };
-    console.log(payload);
-    const alreadyJudged: Boolean = list.includes(payload.participant_id);
-
+  const onClick = () => {
+    const alreadyJudged: Boolean = list.includes(
+      Number(form.values.participant_id)
+    );
     if (alreadyJudged) {
       alert('既に審査済みのユーザーです。');
     } else {
-      createJudgeMutation.mutate(payload);
-      showNotification({
-        title: 'Success',
-        message: '更新できましたわ。',
-        autoClose: 3000,
-      });
+      setOpened(true);
     }
   };
 
@@ -80,7 +61,7 @@ export const JudgeForm: FC = () => {
     <Box className='rounded-md bg-white p-8' mx='auto'>
       <form
         className='mx-auto mt-8 flex w-full flex-col space-y-8 md:w-7/12'
-        onSubmit={form.onSubmit((value) => onSubmitJudge(value))}
+        onSubmit={form.onSubmit(onClick)}
       >
         <Select
           styles={{ label: { fontWeight: 'bold', padding: '4px 0' } }}
@@ -99,7 +80,7 @@ export const JudgeForm: FC = () => {
           required
           min={0}
           step={10}
-          max={100}
+          max={50}
           {...form.getInputProps('cuteNess')}
         />
         <NumberInput
@@ -110,7 +91,7 @@ export const JudgeForm: FC = () => {
           required
           min={0}
           step={10}
-          max={100}
+          max={50}
           {...form.getInputProps('fun')}
         />
         <NumberInput
@@ -121,12 +102,27 @@ export const JudgeForm: FC = () => {
           required
           min={0}
           step={10}
-          max={100}
+          max={50}
           {...form.getInputProps('amazing')}
         />
         <Group position='center' mt='md'>
           <Button type='submit'>送信する</Button>
         </Group>
+        <Modal
+          title='ご確認お願いしますわ'
+          centered
+          opened={opened}
+          onClose={() => setOpened(false)}
+          styles={{
+            title: {
+              fontWeight: 'bold',
+              fontSize: '20px',
+              margin: 'auto',
+            },
+          }}
+        >
+          <JudgeConfirm values={form.values} setOpened={setOpened} />
+        </Modal>
       </form>
     </Box>
   );
