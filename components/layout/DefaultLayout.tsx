@@ -5,6 +5,7 @@ import { useAuth } from '../../hooks/useAuth';
 import useStore from '../../utils/store';
 import { Group, Space, Text } from '@mantine/core';
 import { UtilLink } from '../util/UtilLink';
+import { Logout } from 'tabler-icons-react';
 
 type Props = {
   title: string;
@@ -32,7 +33,7 @@ export const DefaultLayout: FC<Props> = ({ title, children }) => {
               className='cursor-pointer rounded-md border-none bg-red-500 py-2 px-2 text-sm  font-semibold text-white md:px-4 md:text-sm md:font-bold'
               onClick={logOut}
             >
-              ログアウト
+              <Logout size={24} />
             </button>
           )}
         </div>
