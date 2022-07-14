@@ -13,13 +13,32 @@ export const useValidateSession = () => {
   };
 
   const pushToHome = () => {
-    if (session?.user?.email === 'admin01@example.com' && pathname)
-      push('/admin');
     if (session && pathname === '/login') push('/');
   };
 
+  const pushToHomeAdmin = () => {
+    if (session?.user?.email === 'admin01@example.com' && pathname === 'login')
+      push('/admin');
+  };
+
+  const protect = () => {
+    if (
+      (session?.user?.email !== 'admin01@example.com' &&
+        pathname === '/admin') ||
+      pathname === '/admin/log' ||
+      pathname === '/admin/participants'
+    )
+      push('/');
+  };
+
   useEffect(() => {
-    pushToHome();
+    if (session?.user?.email === 'admin01@example.com') {
+      pushToHomeAdmin();
+      if (pathname === '/') push('/admin');
+    } else {
+      pushToHome();
+      protect();
+    }
   }, [session]);
 
   return { pushToLogin };
