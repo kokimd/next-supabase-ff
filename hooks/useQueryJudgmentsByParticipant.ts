@@ -12,7 +12,8 @@ export const useQueryJudgmentsByParticipant = (id?: number) => {
       profiles:profile_id(name)
       `
       )
-      .eq('participant_id', id);
+      .eq('participant_id', id)
+      .order('profile_id', { ascending: true });
 
     if (error) throw new Error(`${error.message}: ${error.details}`);
 
@@ -22,5 +23,6 @@ export const useQueryJudgmentsByParticipant = (id?: number) => {
   return useQuery<JudgeType[]>({
     queryFn: getJudgmentsByParticipant,
     queryKey: [`judgments${id}`],
+    staleTime: 1000,
   });
 };

@@ -7,6 +7,7 @@ type State = {
   setSession: (payload: Session | null) => void;
   judgments: JudgeType[] | undefined;
   setJudgments: (payload: JudgeType[] | undefined) => void;
+  resetJudgments: () => void;
 };
 
 const useStore = create<State>((set) => ({
@@ -19,6 +20,7 @@ const useStore = create<State>((set) => ({
     set({
       judgments: payload,
     }),
+  resetJudgments: () => set({ judgments: [] }),
 }));
 
 export default useStore;
