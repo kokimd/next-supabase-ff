@@ -5,10 +5,8 @@ import useStore from '../../utils/store';
 export const JudgeLogs: FC = () => {
   const judgments = useStore((state) => state.judgments);
 
-  console.log(judgments);
-
   const elements = judgments?.map((data) => ({
-    name: data.participants?.name,
+    name: data.profiles?.name,
     cuteNess: data.cuteNess,
     fun: data.fun,
     amazing: data.amazing,
