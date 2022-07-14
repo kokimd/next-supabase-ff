@@ -1,13 +1,21 @@
-import { FC, useState } from 'react';
+import { FC, useEffect, useState } from 'react';
 import { Box, Select, Table } from '@mantine/core';
 import { Th } from '../Table/Th';
 import { useQueryJudgmentsByParticipant } from '../../hooks/useQueryJudgmentsByParticipant';
 import { useQueryParticipants } from '../../hooks/useQueryParticipants';
+import useStore from '../../utils/store';
 
 export const JudgeResult: FC = () => {
   const [value, setValue] = useState<number>();
   const { data: judgments } = useQueryJudgmentsByParticipant(value);
   const { data: participants } = useQueryParticipants();
+  const setJudgments = useStore((state) => state.setJudgments);
+
+  useEffect(() => {
+    if (judgments) {
+      setJudgments(judgments);
+    }
+  }, [judgments]);
 
   const rows = judgments?.map((element, index) => (
     <tr key={index}>
