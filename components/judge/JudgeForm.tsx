@@ -105,7 +105,9 @@ export const JudgeForm: FC = () => {
           {...form.getInputProps('amazing')}
         />
         <Group position='center' mt='md'>
-          <Button type='submit'>送信する</Button>
+          <Button disabled={Boolean(!judgedParticipants)} type='submit'>
+            送信する
+          </Button>
         </Group>
         <Modal
           title='ご確認お願いしますわ'
