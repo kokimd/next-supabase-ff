@@ -66,7 +66,7 @@ export const useAuth = () => {
       return;
     }
     localStorage.removeItem('userInfo');
-    router.push('/');
+    router.push('/login');
   };
 
   return { error, authForm, login, register, logOut, getUsername };

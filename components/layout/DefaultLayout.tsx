@@ -1,11 +1,12 @@
-import { FC, ReactNode } from 'react';
+import { FC, ReactNode, useEffect } from 'react';
 import Head from 'next/head';
 import Link from 'next/link';
 import { useAuth } from '../../hooks/useAuth';
 import useStore from '../../utils/store';
-import { Group, Space, Text } from '@mantine/core';
+import { Group, Loader, Space, Text } from '@mantine/core';
 import { UtilLink } from '../util/UtilLink';
 import { Logout } from 'tabler-icons-react';
+import { useValidateSession } from '../../hooks/util/useValidateSession';
 
 type Props = {
   title: string;
@@ -15,6 +16,11 @@ type Props = {
 export const DefaultLayout: FC<Props> = ({ title, children }) => {
   const { logOut, getUsername } = useAuth();
   const session = useStore((state) => state.session);
+  const standBy = useStore((state) => state.standBy);
+  const { pushToLogin } = useValidateSession();
+  useEffect(() => {
+    pushToLogin();
+  }, []);
 
   return (
     <div className='flex min-h-screen flex-col items-center justify-center'>
@@ -59,7 +65,13 @@ export const DefaultLayout: FC<Props> = ({ title, children }) => {
               <Space h={30} />
             </>
           )}
-          {children}
+          {standBy ? (
+            children
+          ) : (
+            <div className='flex min-h-full items-center justify-center'>
+              <Loader />
+            </div>
+          )}
         </div>
       </main>
     </div>

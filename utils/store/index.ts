@@ -8,6 +8,8 @@ type State = {
   judgments: JudgeType[] | undefined;
   setJudgments: (payload: JudgeType[] | undefined) => void;
   resetJudgments: () => void;
+  standBy: boolean | null;
+  setStandBy: (payload: boolean) => void;
 };
 
 const useStore = create<State>((set) => ({
@@ -21,6 +23,8 @@ const useStore = create<State>((set) => ({
       judgments: payload,
     }),
   resetJudgments: () => set({ judgments: [] }),
+  standBy: false,
+  setStandBy: (payload) => set({ standBy: payload }),
 }));
 
 export default useStore;

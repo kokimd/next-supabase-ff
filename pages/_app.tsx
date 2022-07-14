@@ -19,13 +19,18 @@ const queryClient = new QueryClient({
 function MyApp({ Component, pageProps }: AppProps) {
   const setSession = useStore((state) => state.setSession);
   const router = useRouter();
+  const setStandBy = useStore((state) => state.setStandBy);
 
   useEffect(() => {
+    setStandBy(false);
     setSession(supabase.auth.session());
     supabase.auth.onAuthStateChange((_event, session) => {
       setSession(session);
     });
-    if (!supabase.auth.session()) router.push('/');
+    if (!supabase.auth.session()) router.push('/login');
+    setTimeout(() => {
+      setStandBy(true);
+    }, 500);
   }, [setSession]);
 
   return (
