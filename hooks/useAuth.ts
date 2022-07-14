@@ -47,6 +47,7 @@ export const useAuth = () => {
       if (data) {
         localStorage.setItem('userInfo', data[0].id);
       }
+      if (user.email === 'admin01@example.com') router.push('/admin');
     }
   };
 

@@ -6,6 +6,7 @@ import { NotificationsProvider } from '@mantine/notifications';
 import { MantineProvider } from '@mantine/core';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import useStore from '../utils/store';
+import { useRouter } from 'next/router';
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -17,12 +18,14 @@ const queryClient = new QueryClient({
 
 function MyApp({ Component, pageProps }: AppProps) {
   const setSession = useStore((state) => state.setSession);
+  const router = useRouter();
 
   useEffect(() => {
     setSession(supabase.auth.session());
     supabase.auth.onAuthStateChange((_event, session) => {
       setSession(session);
     });
+    if (!supabase.auth.session()) router.push('/');
   }, [setSession]);
 
   return (
