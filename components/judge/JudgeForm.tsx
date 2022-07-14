@@ -5,7 +5,6 @@ import { judgeSchema } from '../../utils/validationSchema';
 import { useQueryParticipants } from '../../hooks/useQueryParticipants';
 import { useQueryJudgedParticipants } from '../../hooks/useQueryJudgedParttcipants';
 import { JudgeFormData } from '../../utils/types';
-
 import { JudgeConfirm } from './JudgeConfirm';
 
 export const JudgeForm: FC = () => {

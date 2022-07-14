@@ -51,7 +51,6 @@ export const JudgeConfirm: FC<Props> = ({ values, setOpened }) => {
   return (
     <Paper>
       <LoadingOverlay visible={createJudgeMutation.isLoading} />
-
       <Group className='flex flex-col'>
         <Space h={12} />
         <Box className='flex w-9/12 flex-col'>
