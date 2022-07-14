@@ -1,14 +1,17 @@
 import { FC, useEffect, useState } from 'react';
-import { Box, Select, Table } from '@mantine/core';
+import { Box, Button, Group, Modal, Select, Table } from '@mantine/core';
 import { Th } from '../Table/Th';
 import { useQueryJudgmentsByParticipant } from '../../hooks/useQueryJudgmentsByParticipant';
 import { useQueryParticipants } from '../../hooks/useQueryParticipants';
 import useStore from '../../utils/store';
+import { EditJudgeResult } from '../admin/EditJudgeResult';
 
 export const JudgeResult: FC = () => {
   const [value, setValue] = useState<number>();
   const { data: judgments } = useQueryJudgmentsByParticipant(value);
   const { data: participants } = useQueryParticipants();
+  const [opened, setOpened] = useState(false);
+  const session = useStore((state) => state.session);
   const setJudgments = useStore((state) => state.setJudgments);
 
   useEffect(() => {
@@ -66,6 +69,31 @@ export const JudgeResult: FC = () => {
         </thead>
         <tbody>{rows}</tbody>
       </Table>
+      <Modal
+        title='編集画面ですの'
+        centered
+        opened={opened}
+        onClose={() => setOpened(false)}
+        styles={{
+          title: {
+            fontWeight: 'bold',
+            fontSize: '20px',
+            margin: 'auto',
+          },
+          modal: {
+            width: '90%',
+          },
+        }}
+      >
+        <EditJudgeResult />
+      </Modal>
+      {judgments &&
+        judgments?.length > 0 &&
+        session?.user?.email === 'admin01@example.com' && (
+          <Group position='right' mt={24}>
+            <Button onClick={() => setOpened(true)}>Edit</Button>
+          </Group>
+        )}
     </Box>
   );
 };
