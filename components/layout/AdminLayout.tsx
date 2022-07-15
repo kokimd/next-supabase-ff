@@ -27,6 +27,10 @@ export const AdminLayout: FC<Props> = ({ title, children }) => {
     <div className='flex min-h-screen flex-col items-center justify-center'>
       <Head>
         <title>ポムコレ | {title}</title>
+        <meta
+          name='viewport'
+          content='width=device-width,initial-scale=1.0,maximum-scale=1.0'
+        />
       </Head>
       <header className='container flex h-16 w-full items-center justify-center px-4 md:h-20 md:justify-start'>
         <Link href='/admin'>
