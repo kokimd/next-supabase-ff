@@ -4,7 +4,7 @@ import { useAuth } from '../../hooks/useAuth';
 import { ErrorMessage } from '../util/ErrorMessage';
 
 export const LoginForm: FC = () => {
-  const { error, login, authForm } = useAuth();
+  const { error, login, authForm, loading } = useAuth();
 
   return (
     <Box className='w-full p-4 md:p-8'>
@@ -24,7 +24,9 @@ export const LoginForm: FC = () => {
             {...authForm.getInputProps('password')}
           />
           <Group position='center' mt='md'>
-            <Button type='submit'>ログイン</Button>
+            <Button type='submit' loading={loading}>
+              ログイン
+            </Button>
           </Group>
         </form>
       </Box>

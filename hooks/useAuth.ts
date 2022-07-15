@@ -15,6 +15,7 @@ type User =
 export const useAuth = () => {
   const router = useRouter();
   const [error, setError] = useState('');
+  const [loading, setLoading] = useState(false);
 
   const authForm = useForm({
     initialValues: {
@@ -34,9 +35,11 @@ export const useAuth = () => {
 
   const login = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    setLoading(true);
     const { user, error } = await supabase.auth.signIn(authForm.values);
     if (error) {
       setError(error.message);
+      setLoading(false);
     }
 
     if (user) {
@@ -48,6 +51,7 @@ export const useAuth = () => {
         localStorage.setItem('userInfo', data[0].id);
       }
       if (user.email === 'admin01@example.com') router.push('/admin');
+      setLoading(false);
     }
   };
 
@@ -65,9 +69,9 @@ export const useAuth = () => {
       setError(error.message);
       return;
     }
-    localStorage.removeItem('userInfo');
     router.push('/login');
+    localStorage.removeItem('userInfo');
   };
 
-  return { error, authForm, login, register, logOut, getUsername };
+  return { error, authForm, login, register, logOut, getUsername, loading };
 };
