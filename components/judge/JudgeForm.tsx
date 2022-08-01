@@ -78,8 +78,8 @@ export const JudgeForm: FC = () => {
           label='可愛さ&amp;カッコよさ'
           required
           min={0}
-          step={10}
-          max={50}
+          step={1}
+          max={10}
           {...form.getInputProps('cuteNess')}
         />
         <NumberInput
@@ -89,8 +89,8 @@ export const JudgeForm: FC = () => {
           label='面白さ'
           required
           min={0}
-          step={10}
-          max={50}
+          step={1}
+          max={10}
           {...form.getInputProps('fun')}
         />
         <NumberInput
@@ -100,8 +100,8 @@ export const JudgeForm: FC = () => {
           label='パフォーマンスの凄さ'
           required
           min={0}
-          step={10}
-          max={50}
+          step={1}
+          max={10}
           {...form.getInputProps('amazing')}
         />
         <Group position='center' mt='md'>
